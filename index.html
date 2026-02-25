@@ -128,6 +128,17 @@
       .ref-grid { grid-template-columns:1fr; }
       .container { padding:0 1.5rem; }
     }
+        #references {
+      position: relative;
+    }
+    #references::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1;
+    }
   </style>
 </head>
 <body>
@@ -443,6 +454,7 @@
 </body>
 
 </html>
+
 
 
 
