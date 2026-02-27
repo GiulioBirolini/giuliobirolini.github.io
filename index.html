@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Giulio Birolini's Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --bg:#F4F4F4; --bg2:#EAEAEA; --white:#FFFFFF; --navy:#0F172A; --avio:#4A90E2; --body:#1E293B; --sub:#334155; --border:#CBD5E1; }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--body); font-family:"DM Sans",sans-serif; font-weight:300; line-height:1.7; overflow-x:hidden; }
+
+    /* NAV */
+    nav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; justify-content:space-between; align-items:center; padding:1.3rem 5rem; background:rgba(15,23,42,0.88); backdrop-filter:blur(16px); border-bottom:1px solid rgba(255,255,255,0.08); }
+    .nav-logo { font-family:"Barlow Condensed",sans-serif; font-size:1.2rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#fff; }
+    .nav-logo span { color:var(--avio); }
+    .nav-links { display:flex; gap:3rem; }
+    .nav-links a { font-size:0.72rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.6); text-decoration:none; transition:color 0.2s; }
+    .nav-links a:hover { color:var(--avio); }
+
+    /* BG LAYERS */
+    .section-bg { position:absolute; inset:0; z-index:0; background-size:cover; background-position:center; }
+    .hero-bg { filter:grayscale(100%) brightness(0.45) contrast(1.05); }
+    .hero-bg::after { content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(15,23,42,1) 0%, rgba(15,23,42,0.72) 45%, rgba(15,23,42,0.15) 100%); }
+    .sec-bg { filter:grayscale(100%) brightness(0.85) contrast(0.9); opacity:0.25; }
+    .ref-bg::after { content:""; position:absolute; inset:0; background:rgba(15,23,42,0.72); }
+
+    /* HERO */
+    .hero { position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; padding:0 5rem 7rem; overflow:hidden; background:var(--navy); }
+    .hero-content { position:relative; z-index:1; display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:flex-end; }
+    .hero-eyebrow { font-size:0.68rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--avio); margin-bottom:1.5rem; display:flex; align-items:center; gap:1rem; }
+    .hero-eyebrow::before { content:""; flex:0 0 28px; height:1px; background:var(--avio); }
+    .hero-name { font-family:"Barlow Condensed",sans-serif; font-size:clamp(4rem,7vw,7.5rem); font-weight:700; line-height:0.92; text-transform:uppercase; letter-spacing:0.02em; color:#fff; margin-bottom:1.5rem; }
+    .hero-name .last { color:var(--avio); }
+    .hero-title { font-size:0.88rem; font-weight:400; letter-spacing:0.06em; color:rgba(255,255,255,0.75); margin-bottom:2.5rem; line-height:1.65; }
+    .hero-right { display:flex; flex-direction:column; justify-content:flex-end; border-left:1px solid rgba(255,255,255,0.12); padding-left:4rem; }
+    .hero-contact-item { display:flex; align-items:center; gap:1rem; padding:0.9rem 0; border-bottom:1px solid rgba(255,255,255,0.08); text-decoration:none; color:rgba(255,255,255,0.78); font-size:0.87rem; font-weight:400; transition:color 0.2s; }
+    .hero-contact-item:first-child { border-top:1px solid rgba(255,255,255,0.08); }
+    .hero-contact-item:hover { color:var(--avio); }
+    .hero-contact-item svg { width:13px; height:13px; flex-shrink:0; color:var(--avio); }
+    .hero-social { display:flex; gap:0.8rem; margin-top:1.8rem; }
+    .social-btn { display:inline-flex; align-items:center; gap:0.5rem; padding:0.65rem 1.4rem; border:1.5px solid rgba(255,255,255,0.35); border-radius:2px; font-size:0.72rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.85); text-decoration:none; transition:all 0.2s; }
+    .social-btn:hover { border-color:var(--avio); color:var(--avio); background:rgba(74,144,226,0.1); }
+    .social-btn svg { width:12px; height:12px; }
+
+    /* SECTIONS */
+    section { position:relative; padding:7rem 0; overflow:hidden; }
+    .container { position:relative; z-index:1; max-width:1100px; margin:0 auto; padding:0 5rem; }
+    .sec-label { font-size:0.75rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--avio); margin-bottom:0.7rem; font-weight:500; }
+    .sec-title { font-family:"Barlow Condensed",sans-serif; font-size:clamp(2.4rem,4vw,3.5rem); font-weight:700; text-transform:uppercase; letter-spacing:0.03em; line-height:1.0; color:var(--navy); margin-bottom:3.5rem; }
+    .sec-title em { font-style:normal; color:var(--avio); }
+    .sec-title-light { font-family:"Barlow Condensed",sans-serif; font-size:clamp(2.4rem,4vw,3.5rem); font-weight:700; text-transform:uppercase; letter-spacing:0.03em; line-height:1.0; color:#fff; margin-bottom:3.5rem; }
+    .sec-title-light em { font-style:normal; color:var(--avio); }
+
+    /* RESUME HEADER ROW */
+    .resume-header { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:3.5rem; flex-wrap:wrap; gap:1.2rem; }
+    .resume-header .sec-title { margin-bottom:0; }
+    .download-btn {
+      display:inline-flex; align-items:center; gap:0.6rem;
+      padding:0.75rem 1.6rem;
+      background:var(--avio);
+      color:#fff;
+      border:1.5px solid var(--avio);
+      border-radius:2px;
+      font-family:"Barlow",sans-serif;
+      font-size:0.72rem;
+      font-weight:600;
+      letter-spacing:0.14em;
+      text-transform:uppercase;
+      text-decoration:none;
+      transition:background 0.2s, color 0.2s, box-shadow 0.2s;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+    .download-btn:hover {
+      background:transparent;
+      color:var(--avio);
+      box-shadow:0 4px 18px rgba(74,144,226,0.22);
+    }
+    .download-btn svg { width:14px; height:14px; flex-shrink:0; }
+
+    /* ABOUT — font aumentato */
+    #about { background:var(--bg); border-top:1px solid var(--border); }
+    .about-grid { display:grid; grid-template-columns:1.3fr 0.7fr; gap:6rem; align-items:start; }
+    .about-text { font-size:1.08rem; color:var(--body); line-height:2; }
+    .about-text p + p { margin-top:1.3rem; }
+    .about-text strong { color:var(--navy); font-weight:600; }
+    .about-stats { display:flex; flex-direction:column; gap:2px; }
+    .stat-box { padding:1.5rem 1.8rem; background:#fff; border:1px solid var(--border); transition:border-color 0.25s, box-shadow 0.25s; }
+    .stat-box:hover { border-color:var(--avio); box-shadow:0 4px 16px rgba(74,144,226,0.12); }
+    .stat-num { font-family:"Barlow Condensed",sans-serif; font-size:2.8rem; font-weight:700; color:var(--avio); line-height:1; }
+    .stat-desc { font-size:0.9rem; color:var(--sub); margin-top:0.35rem; line-height:1.55; font-weight:400; }
+
+    /* RESUME — font aumentato */
+    #resume { background:var(--bg2); border-top:1px solid var(--border); }
+    .resume-grid { display:grid; grid-template-columns:0.75fr 1.5fr; gap:5rem; }
+    .block { margin-bottom:2.8rem; }
+    .block-head { font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--avio); padding-bottom:0.6rem; border-bottom:1.5px solid var(--avio); margin-bottom:1.3rem; font-weight:500; }
+    .edu-item { margin-bottom:1.4rem; }
+    .edu-yr { font-size:0.8rem; color:var(--avio); letter-spacing:0.1em; margin-bottom:0.2rem; font-weight:500; }
+    .edu-item h4 { font-family:"Barlow",sans-serif; font-size:1.1rem; font-weight:600; color:var(--navy); margin-bottom:0.15rem; }
+    .edu-item p { font-size:0.94rem; color:var(--sub); font-weight:400; }
+    .tag { display:inline-block; font-size:0.78rem; padding:0.28rem 0.85rem; margin:0.2rem; background:#fff; border:1px solid var(--border); color:var(--body); transition:all 0.2s; cursor:default; font-weight:400; }
+    .tag:hover { border-color:var(--avio); color:var(--avio); }
+    .cert-row { font-size:0.96rem; color:var(--navy); font-weight:400; padding:0.65rem 0; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:0.7rem; }
+    .cert-dot { width:6px; height:6px; border-radius:50%; background:var(--avio); flex-shrink:0; }
+    .exp-item { margin-bottom:2.6rem; padding-left:1.5rem; border-left:2px solid var(--border); transition:border-color 0.25s; }
+    .exp-item:hover { border-color:var(--avio); }
+    .exp-date { font-size:0.8rem; letter-spacing:0.1em; color:var(--avio); margin-bottom:0.3rem; font-weight:500; }
+    .exp-role { font-family:"Barlow",sans-serif; font-size:1.2rem; font-weight:600; color:var(--navy); margin-bottom:0.15rem; }
+    .exp-co { font-size:0.96rem; color:var(--sub); margin-bottom:0.85rem; font-weight:400; }
+    .exp-bullets { list-style:none; }
+    .exp-bullets li { font-size:0.96rem; color:var(--body); font-weight:400; padding:0.25rem 0 0.25rem 1.1rem; position:relative; line-height:1.75; }
+    .exp-bullets li::before { content:"+"; position:absolute; left:0; color:var(--avio); font-weight:600; top:0.18rem; }
+    .skills-cat-label { font-size:0.78rem; color:var(--sub); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.5rem; margin-top:1rem; font-weight:500; display:block; }
+
+    /* LIBRARY LOGOS */
+    .lib-logos { display:flex; align-items:flex-start; flex-wrap:wrap; gap:0.7rem 0.9rem; margin-top:1rem; }
+    .lib-logo-item { display:flex; flex-direction:column; align-items:center; gap:0.35rem; }
+    .lib-logo-circle { width:50px; height:50px; border-radius:50%; border:1.5px solid var(--border); background:#fff; overflow:hidden; display:flex; align-items:center; justify-content:center; transition:border-color 0.2s, box-shadow 0.2s; cursor:default; box-shadow:0 1px 4px rgba(0,0,0,0.08); }
+    .lib-logo-circle:hover { border-color:var(--avio); box-shadow:0 3px 14px rgba(74,144,226,0.25); }
+    .lib-logo-circle img { width:50px; height:50px; object-fit:cover; border-radius:50%; }
+    .lib-logo-name { font-size:0.65rem; color:var(--sub); font-weight:500; text-align:center; max-width:54px; line-height:1.2; }
+
+    /* REFERENCES */
+    #references { position:relative; overflow:hidden; }
+    .ref-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:rgba(255,255,255,0.1); }
+    .ref-card { background:rgba(15,23,42,0.88); padding:2rem; transition:background 0.2s; backdrop-filter:blur(8px); }
+    .ref-card:hover { background:rgba(30,45,69,0.95); }
+    .ref-open { font-family:"Barlow Condensed",sans-serif; font-size:2.8rem; font-weight:700; color:var(--avio); line-height:1; margin-bottom:0.8rem; }
+    .ref-text { font-size:0.85rem; color:rgba(255,255,255,0.82); font-style:italic; line-height:1.82; margin-bottom:1.5rem; font-weight:300; }
+    .ref-rule { width:22px; height:1.5px; background:var(--avio); margin-bottom:0.8rem; }
+    .ref-name { font-family:"Barlow",sans-serif; font-size:1rem; font-weight:600; color:#fff; }
+    .ref-role { font-size:0.72rem; color:var(--avio); margin-top:0.25rem; line-height:1.55; }
+
+    /* FOOTER */
+    footer { background:var(--navy); padding:3rem 5rem; border-top:1px solid rgba(255,255,255,0.1); text-align:center; }
+    footer p { font-size:0.75rem; color:rgba(255,255,255,0.45); letter-spacing:0.08em; }
+    footer strong { color:var(--avio); }
+
+    /* ANIMATIONS */
+    .fade-up { opacity:0; transform:translateY(22px); transition:opacity 0.65s ease, transform 0.65s ease; }
+    .fade-up.visible { opacity:1; transform:translateY(0); }
+
+    /* RESPONSIVE */
+@media (max-width:900px) {
+  nav { padding:1rem 1.5rem; }
+  .nav-links { gap:1rem; }
+  .nav-links a { font-size:0.6rem; }
+  .hero { padding:7rem 1.5rem 5rem; }
+  .hero-content { grid-template-columns:1fr; gap:3rem; }
+  .hero-right { border-left:none; padding-left:0; border-top:1px solid rgba(255,255,255,0.08); padding-top:2rem; }
+  .about-grid, .resume-grid { grid-template-columns:1fr; }
+  .ref-grid { grid-template-columns:1fr; }
+  .container { padding:0 1.5rem; }
+  .resume-header { flex-direction:column; align-items:flex-start; }
+
+  /* Background images optimized for mobile */
+  .section-bg {
+    background-attachment: scroll;
+    background-size: cover;
+  }
+  .hero-bg {
+    background-position: left center;
+  }
+  #about .sec-bg {
+    background-position: right center;
+    opacity: 0.15;
+  }
+  #resume .sec-bg {
+    background-position: center center;
+    opacity: 0.15;
+  }
+  #references .section-bg {
+    background-position: center center;
+  }
+}
+    #references {
+      position: relative;
+    }
+    #references::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Giulio <span>Birolini</span></div>
+  <div class="nav-links">
+    <a href="#about">About Me</a>
+    <a href="#resume">Resume</a>
+    <a href="#references">References</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="section-bg hero-bg" style="background-image: url('hero-bg.jpg')"></div>
+  <div class="hero-content">
+    <div>
+      <p class="hero-eyebrow">Open to Opportunities</p>
+      <h1 class="hero-name">Giulio<br><span class="last">Birolini</span></h1>
+      <p class="hero-title">Industrial Engineer &nbsp;&middot;&nbsp; Data Analyst &nbsp;&middot;&nbsp; Continuous Improvement Specialist</p>
+      <div class="hero-social">
+        <a href="https://www.linkedin.com/in/giuliobirolini/" target="_blank" class="social-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/GiulioBirolini" target="_blank" class="social-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <a href="mailto:giulio.birolini@gmail.com" class="hero-contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        giulio.birolini@gmail.com
+      </a>
+      <a href="tel:+15613176884" class="hero-contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.35h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9A16 16 0 0 0 15 16.09l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +1 (561) 317-6884
+      </a>
+      <div class="hero-contact-item" style="cursor:default">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Palm Beach Gardens, FL &nbsp;&middot;&nbsp; US Permanent Resident
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT ME -->
+<section id="about">
+  <div class="section-bg sec-bg" style="background-image: url('about-bg.jpg')"></div>
+  <div class="container">
+    <p class="sec-label">Who I Am</p>
+    <h2 class="sec-title">About <em>Me</em></h2>
+    <div class="about-grid">
+      <div class="about-text fade-up">
+        <p>I am an Engineer with 4 years of hands-on experience transforming manufacturing and operational processes through disciplined use of data. My work sits at the intersection of classical engineering methods and modern analytics, combining <strong>Lean Manufacturing, Six Sigma</strong>, and process design with <strong>Python, SQL, and Power BI</strong> to deliver improvements that are both measurable and sustainable.</p>
+        <p>My professional evolution has taken me from designing custom industrial equipment to spearheading continuous improvement initiatives in complex production environments. By integrating my background in mechanical engineering with advanced analytical tools, I translate complex data into practical solutions that respect shop-floor realities.</p>
+        <p>I am now based in Palm Beach Gardens, FL, and actively seeking roles in <strong>Industrial Engineering</strong>, <strong>Data Science</strong>, or <strong>Continuous Improvement</strong>. I am a US Permanent Resident, fluent in English and Italian, and ready to contribute from day one.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-box fade-up">
+          <div class="stat-num">4</div>
+          <div class="stat-desc">Years of professional experience across production, quality, and supply chain</div>
+        </div>
+        <div class="stat-box fade-up">
+          <div class="stat-num">33<span style="font-size:1.5rem">%</span></div>
+          <div class="stat-desc">Rework reduction achieved at Phoenix International through data-driven analysis</div>
+        </div>
+        <div class="stat-box fade-up">
+          <div class="stat-num">3</div>
+          <div class="stat-desc">Countries of professional and academic experience: Italy, South Korea, USA</div>
+        </div>
+        <div class="stat-box fade-up">
+          <div class="stat-num">50<span style="font-size:1.5rem">+</span></div>
+          <div class="stat-desc">Coursera certifications completed in Data Science, ML, and Analytics</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume">
+  <div class="section-bg sec-bg" style="background-image: url('resume-bg.jpg')"></div>
+  <div class="container">
+    <p class="sec-label">Experience and Skills</p>
+    <!-- RESUME HEADER with download button -->
+    <div class="resume-header">
+      <h2 class="sec-title">My <em>Resume</em></h2>
+      <a href="Engineer - Giulio Birolini.pdf" download="Engineer - Giulio Birolini.pdf" class="download-btn fade-up">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Download My Resume
+      </a>
+    </div>
+    <div class="resume-grid">
+
+      <!-- LEFT COLUMN -->
+      <div>
+        <div class="block">
+          <p class="block-head">Education</p>
+          <div class="edu-item fade-up">
+            <p class="edu-yr">June 2020</p>
+            <h4>M.Sc. Mechanical Engineering</h4>
+            <p>Process Optimization &nbsp;&middot;&nbsp; University of Bergamo, Italy</p>
+          </div>
+          <div class="edu-item fade-up">
+            <p class="edu-yr">June 2016</p>
+            <h4>B.Sc. Mechanical Engineering</h4>
+            <p>University of Bergamo, Italy</p>
+          </div>
+          <div class="edu-item fade-up">
+            <p class="edu-yr">September 2024</p>
+            <h4>Advanced Studies in Data Science and Business Analytics</h4>
+            <p>Applied Industrial Analytics &nbsp;&middot;&nbsp; Handong Global University, South Korea</p>
+          </div>
+        </div>
+
+        <div class="block">
+          <p class="block-head">Certifications</p>
+          <div class="cert-row fade-up"><span class="cert-dot"></span>Six Sigma Green Belt Specialization</div>
+          <div class="cert-row fade-up"><span class="cert-dot"></span>Operations Research Specialization</div>
+        </div>
+
+        <div class="block">
+          <p class="block-head">Technical Skills</p>
+          <div class="fade-up">
+            <span class="skills-cat-label">Industrial Engineering</span>
+            <span class="tag">Lean Manufacturing</span>
+            <span class="tag">Six Sigma</span>
+            <span class="tag">DMAIC</span>
+            <span class="tag">Value Stream Mapping</span>
+            <span class="tag">OEE</span>
+            <span class="tag">5S</span>
+            <span class="tag">Kaizen</span>
+            <span class="tag">Root Cause Analysis</span>
+          </div>
+          <div class="fade-up">
+            <span class="skills-cat-label">Analytics and Statistics</span>
+            <span class="tag">SPC</span>
+            <span class="tag">Regression Analysis</span>
+            <span class="tag">DOE</span>
+            <span class="tag">Forecasting</span>
+            <span class="tag">Predictive Analytics</span>
+          </div>
+          <div class="fade-up">
+            <span class="skills-cat-label">Software and Tools</span>
+            <span class="tag">Python</span>
+            <span class="tag">SQL</span>
+            <span class="tag">Power BI</span>
+            <span class="tag">Minitab</span>
+            <span class="tag">Excel</span>
+            <span class="tag">MATLAB</span>
+            <span class="tag">R</span>
+            <span class="tag">Git / GitHub</span>
+            <div class="lib-logos">
+<div class="lib-logo-item"><div class="lib-logo-circle"><img src="scikit-learn.png" alt="Scikit-learn"/></div><span class="lib-logo-name">Scikit-learn</span></div>
+<div class="lib-logo-item"><div class="lib-logo-circle"><img src="Pandas.png" alt="Pandas"/></div><span class="lib-logo-name">Pandas</span></div>
+<div class="lib-logo-item"><div class="lib-logo-circle"><img src="NumPy.png" alt="NumPy"/></div><span class="lib-logo-name">NumPy</span></div>
+<div class="lib-logo-item"><div class="lib-logo-circle"><img src="Scipy.png" alt="SciPy"/></div><span class="lib-logo-name">SciPy</span></div>
+<div class="lib-logo-item"><div class="lib-logo-circle"><img src="Matplotlib.png" alt="Matplotlib"/></div><span class="lib-logo-name">Matplotlib</span></div>
+<div class="lib-logo-item"><div class="lib-logo-circle"><img src="Plotly.png" alt="Plotly"/></div><span class="lib-logo-name">Plotly</span></div>
+<div class="lib-logo-item"><div class="lib-logo-circle"><img src="TensorFlow.png" alt="TensorFlow"/></div><span class="lib-logo-name">TensorFlow</span></div>
+<div class="lib-logo-item"><div class="lib-logo-circle"><img src="PyTorch.png" alt="PyTorch"/></div><span class="lib-logo-name">PyTorch</span></div>
+            </div>
+          </div>
+          <div class="fade-up">
+            <span class="skills-cat-label">CAD and Standards</span>
+            <span class="tag">AutoCAD</span>
+            <span class="tag">Autodesk Inventor</span>
+            <span class="tag">ASME BPVC</span>
+            <span class="tag">TEMA</span>
+          </div>
+        </div>
+
+        <div class="block">
+          <p class="block-head">Languages</p>
+          <div class="fade-up">
+            <span class="tag">English &nbsp; Fluent</span>
+            <span class="tag">Italian &nbsp; Native</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div>
+        <div class="block">
+          <p class="block-head">Professional Experience</p>
+
+          <div class="exp-item fade-up">
+            <p class="exp-date">2024 &ndash; Present</p>
+            <p class="exp-role">Independent Learning and Skill Development</p>
+            <p class="exp-co">Self-directed &nbsp;&middot;&nbsp; Palm Beach Gardens, FL</p>
+            <ul class="exp-bullets">
+              <li>Completed 50+ Coursera certificates spanning Data Science, Machine Learning, Python programming, statistics, and business analytics</li>
+              <li>Attended 10 university-level courses focused on applied industrial analytics, operations research, and data-driven decision-making</li>
+              <li>Built personal projects applying learned skills across forecasting, clustering, process optimization, and dashboard development</li>
+            </ul>
+          </div>
+
+          <div class="exp-item fade-up">
+            <p class="exp-date">Feb 2022 &ndash; Mar 2023</p>
+            <p class="exp-role">Industrial Engineer, Operations Analytics</p>
+            <p class="exp-co">Phoenix International S.p.A., Italy</p>
+            <ul class="exp-bullets">
+              <li>Achieved a 33% reduction in rework through data-driven root cause analysis, integrating Lean and Six Sigma with statistical modeling</li>
+              <li>Led automated performance dashboard development in Python and Power BI, monitoring OEE, cycle time, and quality KPIs in real time</li>
+              <li>Applied SPC and regression analysis in Minitab to identify process variations and implement corrective actions</li>
+            </ul>
+          </div>
+
+          <div class="exp-item fade-up">
+            <p class="exp-date">Jul 2020 &ndash; Feb 2022</p>
+            <p class="exp-role">Project Engineer, Industrial and Manufacturing</p>
+            <p class="exp-co">O.V.S. Officine Valle Seriana S.p.A., Italy</p>
+            <ul class="exp-bullets">
+              <li>Delivered Engineer-to-Order projects within cost, schedule, and quality constraints via cross-functional collaboration</li>
+              <li>Conducted capacity analysis and production planning to maintain resource utilization efficiency across project milestones</li>
+              <li>Verified technical compliance with ASME Boiler and Pressure Vessel Code and TEMA heat exchanger standards</li>
+            </ul>
+          </div>
+
+          <div class="exp-item fade-up">
+            <p class="exp-date">Apr 2019 &ndash; Mar 2020</p>
+            <p class="exp-role">Industrial Engineer</p>
+            <p class="exp-co">CMS Costruzione Macchine Speciali S.p.A., Italy</p>
+            <ul class="exp-bullets">
+              <li>Supported Lean Manufacturing initiatives through value stream mapping, standard work, and 5S implementation</li>
+              <li>Applied time-motion studies and root cause analysis to identify bottlenecks and improve process flow</li>
+              <li>Implemented Kanban systems and andon boards with interactive KPIs to improve real-time production visibility</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <p class="block-head">Selected Projects &nbsp;
+            <span style="font-size:0.8rem;color:var(--avio);font-weight:400;letter-spacing:0.04em;text-transform:none">
+              (see my <a href="https://github.com/GiulioBirolini" target="_blank" style="color:var(--avio);text-decoration:underline">GitHub Profile</a> for more details)
+            </span>
+          </p>
+          <div class="exp-item fade-up">
+            <p class="exp-role" style="font-size:1.1rem">Demand Forecasting and Inventory Optimization Dashboard</p>
+            <ul class="exp-bullets" style="margin-top:0.5rem">
+              <li>Built Python-based forecasting and optimization models to support capacity planning and inventory management decisions</li>
+            </ul>
+          </div>
+          <div class="exp-item fade-up">
+            <p class="exp-role" style="font-size:1.1rem">Vertiport Site Selection with K-Means Clustering</p>
+            <ul class="exp-bullets" style="margin-top:0.5rem">
+              <li>Applied K-Means clustering in Python to support infrastructure location decisions based on demand pattern analysis</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end resume-grid -->
+  </div>
+</section>
+
+<!-- REFERENCES -->
+<section id="references">
+  <div class="section-bg ref-bg" style="background-image: url('wrenches.jpg')"></div>
+  <div class="container">
+    <p class="sec-label">What Others Say</p>
+    <h2 class="sec-title-light">References and <em>Endorsements</em></h2>
+    <div class="ref-grid">
+
+      <div class="ref-card fade-up">
+        <div class="ref-open">&ldquo;</div>
+        <p class="ref-text">He has great analytical thinking and on several occasions was able to take noisy and fragmented data and come up with plans for optimizing the manufacturing process. Giulio combines analytical capability with reliability and commitment.</p>
+        <div class="ref-rule"></div>
+        <p class="ref-name">Massimiliano Paonessa</p>
+        <p class="ref-role">Management Consultant &nbsp;&middot;&nbsp; Mentor at Phoenix International</p>
+      </div>
+
+      <div class="ref-card fade-up">
+        <div class="ref-open">&ldquo;</div>
+        <p class="ref-text">He demonstrated solid technical judgment, a practical approach to problem-solving, and the ability to analyze processes and propose realistic improvements. I would not hesitate to hire him again; he was a valuable addition to our team.</p>
+        <div class="ref-rule"></div>
+        <p class="ref-name">Dario Pirovano</p>
+        <p class="ref-role">Technical Lead Manager &nbsp;&middot;&nbsp; O.V.S. Officine Valle Seriana</p>
+      </div>
+
+      <div class="ref-card fade-up">
+        <div class="ref-open">&ldquo;</div>
+        <p class="ref-text">I am confident that Giulio would be a valuable asset to any organization seeking an Engineer who can bridge the gap between operations and analytics. He is not only technically proficient but a real team player. I highly recommend him.</p>
+        <div class="ref-rule"></div>
+        <p class="ref-name">Silvia Cannalonga</p>
+        <p class="ref-role">Operational Excellence Manager &nbsp;&middot;&nbsp; Phoenix International</p>
+      </div>
+
+      <div class="ref-card fade-up">
+        <div class="ref-open">&ldquo;</div>
+        <p class="ref-text">What stood out was his strong willingness to learn and his attention to detail. When Giulio was given responsibility to lead projects, he took it seriously and always followed through. I would happily recommend him for industrial engineering or operations roles.</p>
+        <div class="ref-rule"></div>
+        <p class="ref-name">Barbara Redondi</p>
+        <p class="ref-role">Industrialization and CI Specialist &nbsp;&middot;&nbsp; CMS Costruzione Macchine Speciali</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Giulio Birolini</strong> &nbsp;&middot;&nbsp; Industrial Engineer and Data Analyst &nbsp;&middot;&nbsp; Palm Beach Gardens, FL &nbsp;&middot;&nbsp; US Permanent Resident</p>
+  <p style="margin-top:0.5rem">giulio.birolini@gmail.com &nbsp;&middot;&nbsp; +1 (561) 317-6884</p>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(el) {
+      if (el.isIntersecting) { el.target.classList.add('visible'); obs.unobserve(el.target); }
+    });
+  }, {threshold: 0.1});
+  document.querySelectorAll('.fade-up').forEach(function(el) { obs.observe(el); });
+</script>
+</body>
+</html>
